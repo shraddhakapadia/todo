@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- <head>
+    <meta charset = "UTF-8">
+    <meta name = "viewport" content = "width=device-width, initial-scale = 1.0">
+    <title>Login</title>
+</head> -->
+<body>
+    <div class="wrapper">
+        <h2>To Do App</h2>
+        
+        <form method="POST" >  
+         {% csrf_token %}
+         <div class="col-12">
+            <div class="form-outline">
+                <input type = "text" id = "form1" name = "task" class="form-control" placeholder="Enter a new task"/>
+            </div>
+         </div>
+
+         <div class="col-12">
+            <div class="form-outline">
+                <button type="submit" class="btn btn-primary">Add Task</button>
+            </div>
+         </div>
+        </form>
+
+        <a href="{% url 'logout' %}"><button type="submit" class="btn btn-primary">Sign Out</button></a>
+
+        <table border = 1 class="table mb-4">
+            <thead>
+                <tr>
+                    <th>Todo item</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for i in todos %}
+                <tr>
+                    <td>{{i.todo_name}}</td>
+                    {% if i.status == True %}
+                        <td>Completed</td>
+                    {% else %}
+                        <td>In Progress</td>
+                    {% endif %}
+
+                    <td>
+                        <a href = "{% url 'delete' i.todo_name %}"><button type = "submit" class = "btn btn-danger">Delete</button></a>
+                        <a href = "{% url 'update' i.todo_name %}"><button type = "submit" class = "btn btn-danger">Update</button></a>
+ 
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
