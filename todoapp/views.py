@@ -24,12 +24,12 @@ def register(request):
         email = request.POST.get('email')
         password = request.POST.get('password')
 
-        if len(password) < 5:
-            messages.error(request , "Password is too short! It must be atleast 5 character long.!")
+        if len(password) < 8:
+            messages.error(request , "Password is too short! It must be atleast 8 characters long.!")
             return redirect('register')
-        
+
         get_all_users_by_username = User.objects.filter(username = username)
-        if get_all_users_by_username: 
+        if get_all_users_by_username:
             messages.error(request,"Username already exists..!")
             return redirect('register')
 
@@ -50,8 +50,8 @@ def loginpage(request):
             login(request,validate_user)
             return redirect('home-page')
         else:
-            messages.error(request,"Error , User does not exists..!")
-            return redirect('login')   
+            messages.error(request,"Error ,User does not exists..!")
+            return redirect('login')
      return render(request , 'todoapp/login.html',{})
 
 def DeleteTask(request , name):
